@@ -1,6 +1,7 @@
 // HomeScreen.dart
 import 'package:flutter/material.dart';
 import 'package:pikfliq/themes/Pikfliq_theme_data.dart';
+import 'package:pikfliq/widgets/RandomMovieRecommendationWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/AppBarWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/BottomNavigationWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/DrawerWidget.dart';
@@ -16,7 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   ThemeMode _themeMode = ThemeMode.light;
 
-  //  take a ThemeMode parameter
   void _toggleTheme(ThemeMode mode) {
     setState(() {
       _themeMode = mode;
@@ -38,12 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
       themeMode: _themeMode,
       home: Scaffold(
         appBar: AppBarWidget(),
-        // Passing the _toggleTheme method directly, which now matches the expected signature
         drawer: CustomDrawerWidget(onThemeToggle: _toggleTheme),
         body: IndexedStack(
           index: _selectedIndex,
           children: <Widget>[
-            Center(child: Text('Home Screen')), // Placeholder for Home screen content
+            MovieFetcherWidget(), // Use MovieFetcherWidget here
             Center(child: Text('Discover')), // Placeholder for Discover screen content
             Center(child: Text('Watchlist')), // Placeholder for Watchlist screen content
           ],

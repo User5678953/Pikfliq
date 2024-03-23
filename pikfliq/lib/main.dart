@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pikfliq/screens/HomeScreen.dart';
 import 'package:pikfliq/screens/SettingsScreen.dart';
 import 'package:pikfliq/screens/SplashScreen.dart';
+import 'dart:async';
 
-void main() {
+Future<void> main() async {
+  // Check if the app is not running on the web before loading .env file
+  if (!kIsWeb) {
+    await dotenv.load(fileName: ".env");
+  }
   runApp(MyApp());
 }
 
@@ -12,8 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PikFliq',
-      theme: ThemeData(
-      ),
+      theme: ThemeData(),
       initialRoute: '/', 
       routes: {
         '/': (context) => SplashScreen(), // Define the SplashScreen route
