@@ -30,21 +30,20 @@ class CustomDrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('Profile'),
-            onTap: () {
-              // Implement navigation to profile page or functionality
-              Navigator.pop(context); // Close the drawer
-            },
-          ),
-          ListTile(
             leading: Icon(isLightTheme ? Icons.nightlight_round : Icons.wb_sunny),
             title: Text('Toggle Theme'),
             onTap: () {
               // Toggle the theme mode when this option is selected
               onThemeToggle(isLightTheme ? ThemeMode.dark : ThemeMode.light);
-
               Navigator.pop(context); // Optionally close the drawer
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {
+              // Navigate to the settings page using named route '/settings'
+              Navigator.pushNamed(context, '/settings');
             },
           ),
           // Add more list tiles for other drawer items as needed
