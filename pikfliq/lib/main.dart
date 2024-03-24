@@ -10,6 +10,7 @@ Future<void> main() async {
   // Check if the app is not running on the web before loading .env file
   if (!kIsWeb) {
     await dotenv.load(fileName: ".env");
+     print("API Key: ${dotenv.env['TMDB_API_KEY']}");
   }
   runApp(MyApp());
 }

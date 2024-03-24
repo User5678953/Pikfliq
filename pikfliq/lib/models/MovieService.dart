@@ -1,9 +1,10 @@
+//final String apiKey = dotenv.env['TMDB_API_KEY'] ?? '';
 import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 
 class MovieService {
-  final String apiKey = dotenv.env['TMDB_API_KEY'] ?? '';
+  final String apiKey = '14a1d21f1428b44468709c4b888044cf'; // Only for testing, remove for production
 
   Future<Map<String, dynamic>?> fetchRandomMovie() async {
     var url = Uri.parse('https://api.themoviedb.org/3/movie/popular?api_key=$apiKey');
@@ -11,11 +12,15 @@ class MovieService {
       final response = await http.get(url);
       if (response.statusCode == 200) {
         final body = json.decode(response.body);
-        final List results = body['results'];
+        final List<dynamic> results = body['results'];
         if (results.isNotEmpty) {
-          // Randomly select a movie from the results
-          final randomMovie = results[0]; // Simplify for example; consider random selection
-          return randomMovie;
+          final randomIndex = Random().nextInt(results.length);
+          final randomMovie = results[randomIndex];
+          
+          // Print the entire movie object to the console
+          print("Fetched Random Movie: ${json.encode(randomMovie)}");
+
+          return randomMovie as Map<String, dynamic>;
         }
       }
     } catch (e) {

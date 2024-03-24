@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:pikfliq/models/MovieService.dart';
+// Assuming ErrorSnackBarWidget is accessible from this import
+import 'package:pikfliq/widgets/ScreenScaffoldWidgets/ErrorSnackbar.dart';
+
+class MovieFetcherWidget extends StatefulWidget {
+  @override
+  _MovieFetcherWidgetState createState() => _MovieFetcherWidgetState();
+}
+
+class _MovieFetcherWidgetState extends State<MovieFetcherWidget> {
+  String movieTitle = "Press 'Fetch' to get a movie";
+  bool _isLoading = false;
+  final movieService = MovieService();
+
+  void _getRandomMovie() async {
+    setState(() {
+      _isLoading = true; // Start loading
+    });
+
+    try {
+      final movie = await movieService.fetchRandomMovie();
+      if (movie != null) {
+        setState(() {
+          movieTitle = movie['title'] ?? "Unknown title";
+        });
+      } else {
+        ErrorSnackBarWidget.show(context, "Failed to fetch movie");
+        setState(() {
+          movieTitle = "Failed to fetch movie";
+        });
+      }
+    } catch (e) {
+      ErrorSnackBarWidget.show(context, "Error: $e");
+    } finally {
+      setState(() {
+        _isLoading = false; // Stop loading
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded( // Ensure the widget can expand to fill available space
+      child: Center( // Center the content
+        child: _isLoading
+          ? CircularProgressIndicator() // Show loading indicator when fetching data
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(movieTitle, textAlign: TextAlign.center),
+                ElevatedButton(
+                  onPressed: _getRandomMovie,
+                  child: Text('Fetch'),
+                ),
+              ],
+            ),
+      ),
+    );
+  }
+}
