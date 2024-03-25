@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MovieDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> movieData;
 
-  MovieDetailsScreen({required this.movieData});
+  const MovieDetailsScreen({super.key, required this.movieData});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class MovieDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(movieData['title'] ?? 'Movie Details'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Details Screen Placeholder'),
       ),
     );

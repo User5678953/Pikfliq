@@ -1,43 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:pikfliq/widgets/ActionButtonWidget.dart';
+import 'package:pikfliq/widgets/InformationWidget.dart';
+import 'package:pikfliq/widgets/PosterWidget.dart';
+import 'package:pikfliq/widgets/RatingWidget.dart';
+import 'package:pikfliq/widgets/SearchBarWidget.dart';
+import 'package:pikfliq/widgets/TitleWidget.dart';
 
 class MovieCard extends StatelessWidget {
   final Map<String, dynamic> movieData;
   final bool isMobile;
+  final VoidCallback onFetchMovie; 
 
-  MovieCard({required this.movieData, this.isMobile = false});
+  const MovieCard({
+    Key? key, 
+    required this.movieData, 
+    this.isMobile = false, 
+    required this.onFetchMovie,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Image.network(
-            'https://image.tmdb.org/t/p/w500${movieData["poster_path"]}',
-            width: isMobile ? MediaQuery.of(context).size.width : 400,
-            height: isMobile ? 200 : 400,
-            fit: BoxFit.cover,
-          ),
-          ListTile(
-            title: Text(movieData['title'] ?? 'No Title'),
-            subtitle: Text(movieData['release_date'] ?? 'No Release Date'),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(movieData['overview'] ?? 'No Overview',
-                textAlign: TextAlign.justify),
-          ),
-          if (!isMobile) ...[
-            ButtonBar(
-              alignment: MainAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {}, // TODO: Navigate to details screen
-                  child: const Text('Details'),
-                ),
-              ],
-            ),
+      child: SingleChildScrollView( // Wrap the Column with SingleChildScrollView
+        child: Column(
+          children: [
+            TitleWidget(title: movieData['title'] ?? 'No Title'),
+            PosterWidget(imagePath: movieData['poster_path'] ?? ''),
+            RatingWidget(voteAverage: movieData['vote_average'] / 2), // Adjust as per your rating logic
+            InformationWidget(information: movieData['overview'] ?? 'No Overview'),
+            if (!isMobile) ActionButtonWidget(onFetchMovie: onFetchMovie),
+            if (!isMobile) const SearchBarWidget(),
+            // ... Add any other widgets or information you need
           ],
-        ],
+        ),
       ),
     );
   }

@@ -33,7 +33,7 @@ class PikfliqThemeData {
       ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF4CAF50)), // Green borders for input fields
+          borderSide: const BorderSide(color: Color(0xFF4CAF50)), // Green borders for input fields
           borderRadius: BorderRadius.circular(8.0),
         ),
       ),
@@ -72,7 +72,7 @@ class PikfliqThemeData {
       ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF00796B)), // Darker green borders for inputs
+          borderSide: const BorderSide(color: Color(0xFF00796B)), // Darker green borders for inputs
           borderRadius: BorderRadius.circular(8.0),
         ),
       ),

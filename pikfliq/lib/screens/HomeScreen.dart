@@ -1,13 +1,16 @@
-// HomeScreen.dart
 import 'package:flutter/material.dart';
-import 'package:pikfliq/themes/Pikfliq_theme_data.dart';
-import 'package:pikfliq/widgets/RandomMovieRecommendationWidget.dart';
+import 'package:pikfliq/widgets/RandomMovieFetcher.dart';
+
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/AppBarWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/BottomNavigationWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/DrawerWidget.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, required this.themeMode, required this.toggleTheme})
+      : super(key: key);
+
+  final ThemeMode themeMode;
+  final VoidCallback toggleTheme;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -15,13 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  ThemeMode _themeMode = ThemeMode.light;
-
-  void _toggleTheme(ThemeMode mode) {
-    setState(() {
-      _themeMode = mode;
-    });
-  }
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); // Declare scaffoldKey here
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,28 +26,32 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: PikfliqThemeData.lightTheme,
-      darkTheme: PikfliqThemeData.darkTheme,
-      themeMode: _themeMode,
-      home: Scaffold(
-        appBar: AppBarWidget(),
-        drawer: CustomDrawerWidget(onThemeToggle: _toggleTheme),
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: <Widget>[
-            MovieFetcherWidget(), // Use MovieFetcherWidget here
-            Center(child: Text('Discover')), // Placeholder for Discover screen content
-            Center(child: Text('Watchlist')), // Placeholder for Watchlist screen content
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationWidget(
-          selectedIndex: _selectedIndex,
-          onItemSelected: _onItemTapped,
-        ),
+    double drawerWidth = MediaQuery.of(context).size.width * 0.5; // Half the screen width
+
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBarWidget(
+        onToggleTheme: widget.toggleTheme, 
+        scaffoldKey: _scaffoldKey,
+      ),
+      // Use endDrawer and SizedBox to customize the drawer width
+      endDrawer: SizedBox(
+        width: drawerWidth,
+        child: CustomDrawerWidget(), // Your custom drawer widget
+      ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: <Widget>[
+          MovieFetcherWidget(),
+          Center(child: Text('Discover')),
+          Center(child: Text('Watchlist')),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationWidget(
+        selectedIndex: _selectedIndex,
+        onItemSelected: _onItemTapped,
       ),
     );
   }
