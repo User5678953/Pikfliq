@@ -26,7 +26,7 @@ class MovieCard extends StatelessWidget {
           children: [
             TitleWidget(title: movieData['title'] ?? 'No Title'),
             PosterWidget(imagePath: movieData['poster_path'] ?? ''),
-            RatingWidget(voteAverage: movieData['vote_average'] / 2), // Adjust as per your rating logic
+            RatingBarWidget(rating: movieData['vote_average'].toDouble()), // Adjust as per your rating logic
             InformationWidget(information: movieData['overview'] ?? 'No Overview'),
             if (!isMobile) ActionButtonWidget(onFetchMovie: onFetchMovie),
             if (!isMobile) const SearchBarWidget(),
