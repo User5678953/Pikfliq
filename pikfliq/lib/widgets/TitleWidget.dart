@@ -15,7 +15,7 @@ class TitleWidget extends StatelessWidget {
         child: Text(
           title,
           style: const TextStyle(
-            fontSize: 24, // Starting font size, but FittedBox will adjust it as needed
+            fontSize: 30, // Starting font size, but FittedBox will adjust it as needed
             fontWeight: FontWeight.bold,
           ),
           softWrap: false, // Prevent wrapping to a new line

@@ -7,48 +7,64 @@ class RatingBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Convert rating to a percentage for the bar width
-    final double ratingPercentage = (rating / 10) * 100;
+    final screenWidth = MediaQuery.of(context).size.width / 2; // Use half the screen width
+    final double ratingWidthPercentage = (rating / 10) * screenWidth; // Calculate the filled portion width
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        Container(
-          width: 100, // Fixed width for the bar container
-          height: 20, // Fixed height for a compact appearance
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.grey[300], // Background color of the rating bar
-          ),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              width: ratingPercentage, // Width based on rating percentage
-              height: 20,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: _getRatingColor(rating), // Fill color based on rating
+        SizedBox(height: 8), // Space above the rating bar
+        Center(
+          child: Stack(
+            children: [
+              Container(
+                width: screenWidth,
+                height: 40, // Increased height for prominence
+                decoration: BoxDecoration(
+                  color: Colors.grey[850], // Dark background color for dark mode
+                  borderRadius: BorderRadius.circular(12), // Slightly larger radius for a more pronounced curve
+                ),
               ),
-            ),
+              Container(
+                width: ratingWidthPercentage,
+                height: 40, // Match the increased height
+                decoration: BoxDecoration(
+                  color: _getRatingColor(rating), // Fill color based on the rating
+                  borderRadius: BorderRadius.circular(12), // Consistent border radius with the background
+                ),
+                alignment: Alignment.center, // Center the text within the filled bar
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0), // Ensure text doesn't touch the edges
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown, // Ensures the text scales down to fit the space if needed
+                    child: Text(
+                      rating.toStringAsFixed(1),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20, // Increased font size
+                        color: Colors.white, // Text color for contrast
+                      ),
+                      maxLines: 1, // Prevents the text from wrapping to a new line
+                      overflow: TextOverflow.visible, // Avoids clipping if text overflows
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        SizedBox(width: 8), // Spacing between the bar and the rating text
-        Text(
-          rating.toStringAsFixed(1), // Show the rating value next to the bar
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        SizedBox(height: 16), // Increased space below the rating bar for separation
       ],
     );
   }
 
   Color _getRatingColor(double rating) {
-    // Determine the fill color of the rating bar based on the rating value
+    // Color logic remains the same
     if (rating >= 7) {
-      return Colors.green; // High ratings
+      return Colors.greenAccent[400]!; // Bright green for high ratings
     } else if (rating >= 4) {
-      return Colors.orange; // Medium ratings
+      return Colors.orange; // Orange for medium ratings
     } else {
-      return Colors.red; // Low ratings
+      return Colors.redAccent[400]!; // Bright red for low ratings
     }
   }
 }
