@@ -7,14 +7,20 @@ class MovieService {
   final Set<int> recentlyRecommended = {}; // Tracks movie IDs to avoid repetition
   final int recommendationHistoryLimit = 10; // Limit for tracking history to avoid repetition
 
-  Future<Map<String, dynamic>?> fetchRandomMovie({List<int>? genreIds}) async {
-    // Base URL for fetching popular movies. Adjust as needed for other criteria.
-    String baseUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=$apiKey&language=en-US&sort_by=popularity.desc';
+  // Future<Map<String, dynamic>?> fetchRandomMovie({List<int>? genreIds}) async {
+  //   // Base URL for fetching popular movies. Adjust as needed for other criteria.
+  //   String baseUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=$apiKey&language=en-US&sort_by=popularity.desc';
     
+  //   if (genreIds != null && genreIds.isNotEmpty) {
+  //     baseUrl += '&with_genres=${genreIds.join(",")}';
+  //   }
+
+    Future<Map<String, dynamic>?> fetchRandomMovie({List<int>? genreIds, bool includeAdult = false}) async {
+    String baseUrl = 'https://api.themoviedb.org/3/discover/movie?api_key=$apiKey&language=en-US&sort_by=popularity.desc&include_adult=${includeAdult.toString()}';
     if (genreIds != null && genreIds.isNotEmpty) {
       baseUrl += '&with_genres=${genreIds.join(",")}';
     }
-
+    
     try {
       // Fetch the total number of pages available to ensure a wide selection
       final initialResponse = await http.get(Uri.parse(baseUrl));

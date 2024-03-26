@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawerWidget extends StatefulWidget {
   const CustomDrawerWidget({Key? key}) : super(key: key);
@@ -8,6 +9,29 @@ class CustomDrawerWidget extends StatefulWidget {
 }
 
 class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
+  bool _includeAdultContent = false; // Default to not including adult content
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAdultContentPreference();
+  }
+
+  Future<void> _loadAdultContentPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _includeAdultContent = prefs.getBool('includeAdultContent') ?? false;
+    });
+  }
+
+  Future<void> _updateAdultContentPreference(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('includeAdultContent', value);
+    setState(() {
+      _includeAdultContent = value;
+    });
+  }
+
   void _closeDrawer(BuildContext context) {
     Navigator.of(context).pop(); // Close the drawer
   }
@@ -20,7 +44,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
         children: [
           Container(
             height: 80, // Reduced height of the DrawerHeader
-            color: Theme.of(context).colorScheme.secondary, // Changed color to a different shade of purple
+            color: Theme.of(context).colorScheme.secondary, 
             child: Center(
               child: Text(
                 'Navigation',
@@ -49,7 +73,6 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
               Navigator.pushNamed(context, '/watchlist');
             },
           ),
-          // Placeholder for future features
           ListTile(
             leading: const Icon(Icons.explore),
             title: const Text('Explore'),
@@ -64,6 +87,14 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             onTap: () {
               // Navigate to the settings page
               Navigator.pushNamed(context, '/settings');
+            },
+          ),
+          SwitchListTile(
+            title: const Text('"R" Rated Content'),
+            value: _includeAdultContent,
+            onChanged: (bool value) {
+              _updateAdultContentPreference(value);
+              // Optionally, trigger a fetch or update to the movie list based on the new preference
             },
           ),
           GestureDetector(
