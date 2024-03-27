@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             // Constrain the size of the splash image based on screen size
             Image.asset(
-              'assets/WebbyWebDevGraphic.jpg',
+              'assets/PikLogo.png',
               width: screenSize.width * (screenSize.width < 600 ? 0.8 : 0.5), // Smaller width for mobile screens
               height: screenSize.height * (screenSize.width < 600 ? 0.8 : 0.5), // Smaller height for mobile screens
               fit: BoxFit.cover,

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:pikfliq/screens/FavoritesWatchlistScreen.dart';
 import 'package:pikfliq/screens/HomeScreen.dart';
 import 'package:pikfliq/screens/SettingsScreen.dart';
 import 'package:pikfliq/screens/SplashScreen.dart';
 import 'dart:async';
 
 void main() async {
-  // Load environment variables if not on the web
+  // Ensure proper initializations when not running in web environment
+  WidgetsFlutterBinding.ensureInitialized();
   if (!kIsWeb) {
     await dotenv.load(fileName: ".env");
   }
@@ -37,10 +39,18 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: _themeMode,
-      home: HomeScreen(
-        themeMode: _themeMode,
-        toggleTheme: _toggleTheme,
-      ),
+      // Update the initialRoute to point to the SplashScreen
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/home': (context) => HomeScreen(
+              themeMode: _themeMode,
+              toggleTheme: _toggleTheme,
+            ),
+        '/favoritesWatchlist': (context) => FavoritesWatchlistScreen(),
+        '/settings': (context) => SettingsScreen(),
+        // Add other routes as needed
+      },
     );
   }
 }

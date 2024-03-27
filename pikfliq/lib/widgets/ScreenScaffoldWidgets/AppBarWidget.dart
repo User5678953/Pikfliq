@@ -22,7 +22,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           height: 40.0, // Adjust the height as needed
           child: IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => scaffoldKey.currentState?.openEndDrawer(),
+             onPressed: () => scaffoldKey.currentState?.openEndDrawer(), 
           ),
         ),
         SizedBox(
