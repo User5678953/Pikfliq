@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pikfliq/screens/FavoritesWatchlistScreen.dart'; // Import FavoritesWatchlistScreen
 import 'package:pikfliq/widgets/RandomMovieFetcher.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/AppBarWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/BottomNavigationWidget.dart';
@@ -41,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBarWidget(
+    
         onToggleTheme: widget.toggleTheme,
         scaffoldKey: _scaffoldKey,
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikfliq/widgets/AboutModalWidget.dart'; // Ensure this import is correct
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onToggleTheme;
@@ -15,22 +16,30 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image.asset('assets/PikLogo.png'),
+      ),
       automaticallyImplyLeading: false,
       actions: [
-        SizedBox(
-          width: 40.0, // Adjust the width as needed
-          height: 40.0, // Adjust the height as needed
-          child: IconButton(
-            icon: const Icon(Icons.settings),
-             onPressed: () => scaffoldKey.currentState?.openEndDrawer(), 
-          ),
+        IconButton(
+          icon: const Icon(Icons.settings, size: 50),
+          onPressed: () => scaffoldKey.currentState?.openEndDrawer(),
         ),
-        SizedBox(
-          width: 40.0, // Adjust the width as needed
-          height: 40.0, // Adjust the height as needed
+        IconButton(
+          icon: const Icon(Icons.brightness_6, size: 50),
+          onPressed: onToggleTheme,
+        ),
+        MouseRegion(
+          cursor: SystemMouseCursors.click, // Change the cursor to a pointer
           child: IconButton(
-            icon: const Icon(Icons.brightness_6),
-            onPressed: onToggleTheme,
+            icon: const Icon(Icons.question_mark, size: 50),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const AboutModalWidget(),
+              );
+            },
           ),
         ),
       ],
