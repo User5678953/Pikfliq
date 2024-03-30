@@ -11,7 +11,7 @@ class _UnderDevPlaceholderWidgetState extends State<UnderDevPlaceholderWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(Duration(seconds: 2)), // Simulate a 2-second loading delay
+      future: Future.delayed(Duration(seconds: 1)), // Simulate a 2-second loading delay
       builder: (context, snapshot) {
         // Check if the future is complete
         if (snapshot.connectionState == ConnectionState.done) {

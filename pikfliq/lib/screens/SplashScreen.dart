@@ -1,25 +1,34 @@
+import 'dart:async'; // Ensure you have this import for the Timer
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  double _progressValue = 0.0;
+
   @override
   void initState() {
     super.initState();
-    navigateToHome();
+    _simulateLoading();
   }
 
-  Future<void> navigateToHome() async {
-    // Simulate a 5-second delay
-    await Future.delayed(const Duration(seconds: 5));
-
-    // Navigate to the home screen using a named route
-    Navigator.of(context).pushReplacementNamed('/home');
+  void _simulateLoading() {
+    const oneSec = Duration(milliseconds: 500);
+    Timer.periodic(oneSec, (Timer timer) {
+      if (_progressValue >= 1) {
+        timer.cancel();
+        Navigator.of(context).pushReplacementNamed('/home');
+      } else {
+        setState(() {
+          _progressValue += 0.1; // Increment the progress value
+        });
+      }
+    });
   }
 
   @override
@@ -32,16 +41,22 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Constrain the size of the splash image based on screen size
             Image.asset(
-              'assets/PikLogo.png',
-              width: screenSize.width * (screenSize.width < 600 ? 0.8 : 0.5), // Smaller width for mobile screens
-              height: screenSize.height * (screenSize.width < 600 ? 0.8 : 0.5), // Smaller height for mobile screens
-              fit: BoxFit.cover,
+              'assets/PikLogo.png', // Replace with your actual logo path
+              width: screenSize.width * 0.6, // Adjust the width as needed
+              height: screenSize.height * 0.3, // Adjust the height as needed
+              fit: BoxFit.contain,
             ),
-            const SizedBox(height: 20), // Provide some spacing between the image and the progress indicator
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            SizedBox(height: screenSize.height * 0.05), // Space between logo and progress bar
+            SizedBox(
+              // Constrain the width of the progress bar
+              width: screenSize.width * 0.7, // Adjust the width to 70% of screen width
+              child: LinearProgressIndicator(
+                value: _progressValue,
+                backgroundColor: Colors.grey,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                minHeight: 12, // Adjust the thickness of the progress bar
+              ),
             ),
           ],
         ),

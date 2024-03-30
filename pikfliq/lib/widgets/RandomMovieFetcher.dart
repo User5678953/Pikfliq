@@ -22,63 +22,57 @@ class _MovieFetcherWidgetState extends State<MovieFetcherWidget> {
   void _fetchRandomMovie() async {
     try {
       final movie = await movieService.fetchRandomMovie();
-      setState(() {
-        currentMovie = movie;
-      });
+      if (mounted) {
+        setState(() {
+          currentMovie = movie;
+        });
+      }
     } catch (e) {
       print('Error fetching movie: $e');
     }
   }
 
-  void _swipeLeft() {
-    _fetchRandomMovie();
-  }
-
-  void _swipeRight() {
-    _fetchRandomMovie();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 600;
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
+
     return Scaffold(
-      floatingActionButton: isMobile
-          ? FloatingActionButton(
-              onPressed: _fetchRandomMovie,
-              child: const Icon(Icons.refresh),
-            )
-          : null,
+      floatingActionButton: FloatingActionButton(
+        onPressed: _fetchRandomMovie,
+        child: const Icon(Icons.refresh),
+        backgroundColor: Color.fromARGB(255, 87, 2, 235),
+      ),
       body: GestureDetector(
         onHorizontalDragEnd: (details) {
-          if (details.velocity.pixelsPerSecond.dx > 0) {
-            _swipeRight();
-          } else {
-            _swipeLeft();
-          }
+          _fetchRandomMovie();
         },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              if (currentMovie != null)
-                MovieCard(
-                  movieData: currentMovie!,
-                  isMobile: isMobile,
-                  onFetchMovie: _fetchRandomMovie,
-                ),
-              if (!isMobile)
-                ElevatedButton(
-                  onPressed: _fetchRandomMovie,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red, // This will set the button color to red
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  child: const Text('Pick-a-Movie'),
-                ),
-            ],
-          ),
-        ),
+        child: currentMovie != null
+            ? LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: IntrinsicHeight(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            MovieCard(
+                              movieData: currentMovie!,
+                              isMobile: isMobile,
+                              onFetchMovie: _fetchRandomMovie,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
     );
   }
