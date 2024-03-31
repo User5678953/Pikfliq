@@ -68,8 +68,6 @@ class _MovieCardState extends State<MovieCard>
   }
 
   Widget _buildMobileLayout() {
-    // Implementation for mobile layout
-
     return GestureDetector(
       onTap: _flipCard,
       child: AnimatedBuilder(
@@ -87,10 +85,15 @@ class _MovieCardState extends State<MovieCard>
                     alignment: Alignment.center,
                     transform: Matrix4.identity()..rotateY(math.pi),
                     child: InformationWidget(
+                       title: widget.movieData!['title'] ?? 'No Title',
                       summary: widget.movieData!['overview'] ??
                           'No Overview Available',
                       releaseDate: widget.movieData!['release_date'] ??
                           'No Release Date',
+                      backdropPath: widget.movieData!['backdrop_path'] ??
+                          '', // Added backdropPath parameter
+                      onBackButtonPressed: () =>
+                          _flipCard(), // Handle back button press
                     ),
                   ),
           );
@@ -108,44 +111,22 @@ class _MovieCardState extends State<MovieCard>
   }
 
   Widget _buildDesktopLayout() {
-    double posterHeight = 400; // Define a fixed height for your poster widget
-    double ratingBarWidth = 200; // Define a desired width for your rating bar
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TitleWidget(title: widget.movieData!['title'] ?? 'No Title'),
-              SizedBox(
-                height: posterHeight,
-                child: PosterWidget(
-                    imagePath: widget.movieData!['poster_path'] ?? ''),
-              ),
-              SizedBox(height: 8),
-              Center(
-                // Center the rating bar horizontally within the column
-                child: Container(
-                  width: ratingBarWidth, // Set the width for your rating bar
-                  child: RatingBarWidget(
-                      rating: widget.movieData!['vote_average'].toDouble()),
-                ),
-              ),
-              SizedBox(
-                  height: 16), // Optional space for the action button if needed
-              ActionButtonWidget(onFetchMovie: widget.onFetchMovie),
-            ],
-          ),
-        ),
-        VerticalDivider(width: 1, color: Colors.grey),
+        // Your existing column for the left half
+        // Your vertical divider
         Expanded(
           child: SingleChildScrollView(
             padding: EdgeInsets.all(16),
             child: InformationWidget(
+               title: widget.movieData!['title'] ?? 'No Title',
               summary: widget.movieData!['overview'] ?? '',
               releaseDate: widget.movieData!['release_date'] ?? '',
+              backdropPath: widget.movieData!['backdrop_path'] ??
+                  '', // Added backdropPath parameter
+              onBackButtonPressed: () =>
+                  _flipCard(), // Handle back button press
             ),
           ),
         ),

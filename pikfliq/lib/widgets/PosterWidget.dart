@@ -19,12 +19,34 @@ class PosterWidget extends StatelessWidget {
       child: Container(
         height: imageHeight, // Set the height to limit the vertical length
         width: isMobile ? double.infinity : maxWidth, // Limit width for non-mobile screens
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage('https://image.tmdb.org/t/p/w500$imagePath'),
-            fit: BoxFit.cover, // Maintain BoxFit.cover as per your design preference
-          ),
-          borderRadius: isMobile ? BorderRadius.zero : BorderRadius.circular(10), // Optional: Rounded corners for non-mobile
+        child: Stack(
+          alignment: Alignment.bottomCenter, // Position the label at the bottom of the image
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage('https://image.tmdb.org/t/p/w500$imagePath'),
+                  fit: BoxFit.cover, // Maintain BoxFit.cover as per your design preference
+                ),
+                borderRadius: isMobile ? BorderRadius.zero : BorderRadius.circular(10), // Optional: Rounded corners for non-mobile
+              ),
+            ),
+            if (isMobile) Positioned( // Only show this on mobile layouts
+              bottom: 10, // Distance from the bottom of the poster
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4), // Padding inside the container
+                color: Colors.black.withOpacity(0.5), // Semi-transparent black background
+                child: Text(
+                  'Tap for Details',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
