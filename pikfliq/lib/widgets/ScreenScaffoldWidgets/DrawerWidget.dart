@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pikfliq/widgets/AboutModalWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawerWidget extends StatefulWidget {
@@ -41,34 +42,20 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
             ),
-            child: Text(
-              'Pikfliq Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center, // Center the content
+              children: [
+                Text(
+                  'Pikfliq Settings', // Updated header to 'Pikfliq Settings'
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold, // Make the title bold
+                  ),
+                ),
+                SizedBox(height: 10), // Add some spacing between header and content
+              ],
             ),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.movie),
-            title: Text('Movies'),
-            onTap: () {
-              // Your navigation logic here
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              // Your navigation logic here
-            },
           ),
           SwitchListTile(
             title: Text(
@@ -87,14 +74,37 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.movie),
+            title: Text('Watchlist'),
+            onTap: () {
+              Navigator.pushNamed(context, '/home');
+            },
+          ),
+          
+          ListTile(
             leading: Icon(Icons.info_outline),
             title: Text('About'),
             onTap: () {
-              // Your navigation logic here
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const AboutModalWidget(),
+              );
             },
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            padding: EdgeInsets.only(bottom: 20),
+            child: Text(
+              'Version 1.5 March 2024',
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+

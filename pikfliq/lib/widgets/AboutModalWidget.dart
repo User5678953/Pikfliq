@@ -21,9 +21,17 @@ class AboutModalWidget extends StatelessWidget {
             children: <Widget>[
               Align(
                 alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: Icon(Icons.close, color: Colors.red),
-                  onPressed: () => Navigator.of(context).pop(),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.close, color: Colors.white),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
                 ),
               ),
               Center(
@@ -35,7 +43,7 @@ class AboutModalWidget extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                "Developed by: WebbyWebDev",
+                "Pikfliq - Your Shortcut to Movie Discovery",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -44,18 +52,8 @@ class AboutModalWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Text(
-                "Why Pikfliq? Pick-A-Flick was too boring",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Created out of my own frustration with spending hours deciding what to watch, Pikfliq is your shortcut to movie discovery. No more endless browsing through lists without making a decision. With Pikfliq, find your next watch in a click.",
+              const Text(
+                "Pikfliq is designed to simplify your movie choices. Say goodbye to endless scrolling and indecision. With Pikfliq, discover your next favorite movie in just one click.",
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
@@ -72,7 +70,7 @@ class AboutModalWidget extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  "Discover More on GitHub",
+                  "WebbyWebDev on GitHub",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.blue[300],

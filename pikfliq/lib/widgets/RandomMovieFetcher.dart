@@ -2,78 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:pikfliq/models/MovieService.dart';
 import 'package:pikfliq/widgets/movie_card.dart';
 
-class MovieFetcherWidget extends StatefulWidget {
-  const MovieFetcherWidget({Key? key}) : super(key: key);
+class RandomMovieFetcher extends StatefulWidget {
+  final Map<String, dynamic>? movieData;
+
+  const RandomMovieFetcher({Key? key, required this.onNewMovie, this.movieData})
+      : super(key: key);
+  final Function(Map<String, dynamic>?) onNewMovie;
 
   @override
-  _MovieFetcherWidgetState createState() => _MovieFetcherWidgetState();
+  _RandomMovieFetcherState createState() => _RandomMovieFetcherState();
+
+  static _RandomMovieFetcherState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_RandomMovieFetcherState>();
 }
 
-class _MovieFetcherWidgetState extends State<MovieFetcherWidget> {
+class _RandomMovieFetcherState extends State<RandomMovieFetcher> {
   Map<String, dynamic>? currentMovie;
   final MovieService movieService = MovieService();
 
   @override
   void initState() {
     super.initState();
-    _fetchRandomMovie();
+    fetchRandomMovie();
   }
 
-  void _fetchRandomMovie() async {
-    try {
-      final movie = await movieService.fetchRandomMovie();
-      if (mounted) {
-        setState(() {
-          currentMovie = movie;
-        });
-      }
-    } catch (e) {
-      print('Error fetching movie: $e');
+  void fetchRandomMovie() async {
+    final movie = await movieService.fetchRandomMovie();
+    if (movie != null && mounted) {
+      // Check if the widget is still in the widget tree
+      setState(() => currentMovie = movie);
+      widget.onNewMovie(movie); // Call the callback with the new movie data
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = MediaQuery.of(context).size.width < 600;
-
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: _fetchRandomMovie,
-        child: const Icon(Icons.refresh),
-        backgroundColor: Color.fromARGB(255, 87, 2, 235),
-      ),
-      body: GestureDetector(
-        onHorizontalDragEnd: (details) {
-          _fetchRandomMovie();
-        },
-        child: currentMovie != null
-            ? LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: constraints.maxHeight,
-                      ),
-                      child: IntrinsicHeight(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            MovieCard(
-                              movieData: currentMovie!,
-                              isMobile: isMobile,
-                              onFetchMovie: _fetchRandomMovie,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              )
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
-      ),
-    );
+    return currentMovie != null
+        ? MovieCard(
+            key: ValueKey(
+                currentMovie!['id']), // Assuming each movie has a unique 'id'
+             movieData: widget.movieData, // Passed down from HomeScreen
+    isMobile: MediaQuery.of(context).size.width < 600,
+    onFetchMovie: () {}, 
+          )
+        : Center(
+            child:
+                CircularProgressIndicator()); // Ensure this line is correct as shown
   }
 }

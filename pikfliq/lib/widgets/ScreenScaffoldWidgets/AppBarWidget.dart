@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pikfliq/widgets/AboutModalWidget.dart'; // Ensure this import is correct
+
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onToggleTheme;
@@ -29,18 +29,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.brightness_6, size: 50),
           onPressed: onToggleTheme,
-        ),
-        MouseRegion(
-          cursor: SystemMouseCursors.click, // Change the cursor to a pointer
-          child: IconButton(
-            icon: const Icon(Icons.question_mark, size: 50),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => const AboutModalWidget(),
-              );
-            },
-          ),
         ),
       ],
       titleSpacing: NavigationToolbar.kMiddleSpacing,

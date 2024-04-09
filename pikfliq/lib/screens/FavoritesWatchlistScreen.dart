@@ -4,6 +4,9 @@ import 'package:pikfliq/widgets/ScreenScaffoldWidgets/AppBarWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/BottomNavigationWidget.dart';
 import 'package:pikfliq/widgets/ScreenScaffoldWidgets/DrawerWidget.dart';
 import 'package:pikfliq/widgets/UnderDevPlaceholderWidget.dart';
+import 'package:pikfliq/widgets/WatchListWidget.dart';
+
+
 
 class FavoritesWatchlistScreen extends StatefulWidget {
   const FavoritesWatchlistScreen({Key? key}) : super(key: key);
@@ -25,24 +28,20 @@ class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen> {
     });
   }
 
-  void _toggleTheme() {
-    // Placeholder for theme toggle logic
-    // This could be expanded to actually toggle between light/dark themes if you're managing theme data at an app-wide level
-    print("Theme toggled"); // For demonstration
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, // Use the _scaffoldKey for Scaffold
-      appBar: AppBarWidget(
-        onToggleTheme: _toggleTheme,
-        scaffoldKey: _scaffoldKey,
-      ),
-      drawer: CustomDrawerWidget(), // Assuming the DrawerWidget doesn't need additional parameters
-      body: Center(
-        child: UnderDevPlaceholderWidget(), // Display the under development placeholder
-      ),
+      // key: _scaffoldKey, // Continue using the _scaffoldKey for Scaffold
+      // appBar: AppBarWidget(
+      //   onToggleTheme: _toggleTheme,
+      //   scaffoldKey: _scaffoldKey,
+      // ),
+      drawer: CustomDrawerWidget(), // Keep the DrawerWidget as is
+      body: WatchListWidget(), // Integrate the WatchListWidget here
+      // Center(
+      //   child: UnderDevPlaceholderWidget(), // Commented out the UnderDevPlaceholderWidget
+      // ),
       bottomNavigationBar: BottomNavigationWidget(
         selectedIndex: _selectedIndex,
         onItemSelected: _onItemTapped,
@@ -50,3 +49,4 @@ class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen> {
     );
   }
 }
+    

@@ -59,7 +59,7 @@ class InformationWidget extends StatelessWidget {
 
     Widget buildBackButton() {
       return isMobile ? Align(
-        alignment: Alignment.bottomRight,
+        alignment: Alignment.bottomLeft,
         child: FloatingActionButton(
            elevation: 0,
           backgroundColor: Colors.red,
