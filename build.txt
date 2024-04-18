@@ -1,0 +1,11 @@
+
+
+flutter clean 
+flutter pub get 
+
+flutter build web
+
+netlify deploy --prod --dir=build/web
+
+netlify open
+

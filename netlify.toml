@@ -1,0 +1,11 @@
+
+[build]
+  command = "sed -i 's/REPLACE_TMDB_API_KEY/${TMDB_API_KEY}/g' web/index.html && flutter build web --web-renderer html"
+  functions = "netlify/functions"
+  publish = "build/web"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
