@@ -95,7 +95,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             alignment: Alignment.bottomCenter,
             padding: const EdgeInsets.only(bottom: 20),
             child: const Text(
-              'Version 1.0.0+1 May 2025',
+              'Version 1.0.0+3 May 2025',
               style: TextStyle(
                 color: Colors.grey,
               ),
