@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UnderDevPlaceholderWidget extends StatefulWidget {
-  const UnderDevPlaceholderWidget({Key? key}) : super(key: key);
+  const UnderDevPlaceholderWidget({super.key});
 
   @override
   State<UnderDevPlaceholderWidget> createState() => _UnderDevPlaceholderWidgetState();
@@ -11,7 +11,7 @@ class _UnderDevPlaceholderWidgetState extends State<UnderDevPlaceholderWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(Duration(seconds: 1)), // Simulate a 2-second loading delay
+      future: Future.delayed(const Duration(seconds: 1)), // Simulate a 2-second loading delay
       builder: (context, snapshot) {
         // Check if the future is complete
         if (snapshot.connectionState == ConnectionState.done) {
@@ -29,7 +29,7 @@ class _UnderDevPlaceholderWidgetState extends State<UnderDevPlaceholderWidget> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Icon(
                   Icons.construction,
                   size: 48,
@@ -40,7 +40,7 @@ class _UnderDevPlaceholderWidgetState extends State<UnderDevPlaceholderWidget> {
           );
         } else {
           // While waiting for the future to complete, show a loading indicator
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }

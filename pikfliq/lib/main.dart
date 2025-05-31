@@ -18,6 +18,8 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -42,13 +44,13 @@ class _MyAppState extends State<MyApp> {
       // Update the initialRoute to point to the SplashScreen
       initialRoute: '/',
       routes: {
-        '/': (context) => SplashScreen(),
+        '/': (context) => const SplashScreen(),
         '/home': (context) => HomeScreen(
               themeMode: _themeMode,
               toggleTheme: _toggleTheme,
             ),
-        '/favoritesWatchlist': (context) => FavoritesWatchlistScreen(),
-        '/settings': (context) => SettingsScreen(),
+        '/favoritesWatchlist': (context) => const FavoritesWatchlistScreen(),
+        '/settings': (context) => const SettingsScreen(),
         // Add other routes as needed
       },
     );

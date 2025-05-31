@@ -8,11 +8,11 @@ class MovieSwipeWidget extends StatelessWidget {
   final double rating;
 
   const MovieSwipeWidget({
-    Key? key,
+    super.key,
     required this.moviePoster,
     required this.movieDescription,
     required this.rating,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +41,17 @@ class MovieSwipeWidget extends StatelessWidget {
               children: [
                 Text(
                   movieDescription,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Row(
                   children: [
                     RatingWidget(voteAverage: rating),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     InformationWidget(information: '$rating/10'),
                   ],
                 ),

@@ -8,10 +8,10 @@ class PikfliqThemeData {
       colorScheme: const ColorScheme.light(
         primary: Color(0xFF1B5E20), // A vibrant green for primary content
         secondary: Color(0xFF4CAF50), // A slightly lighter green for accents
-        background: Color(0xFFFFFFFF), // White for general backgrounds
+        surface: Color(0xFFFFFFFF), // White for general backgrounds
         onPrimary: Colors.white, // White text/icons on primary color background
         onSecondary: Colors.black, // Black text/icons on secondary color background
-        onBackground: Color(0xFF1B5E20), // Green text/icons on white background for contrast
+        onSurface: Color(0xFF1B5E20), // Green text/icons on white background for contrast
       ),
       fontFamily: 'Roboto',
       appBarTheme: const AppBarTheme(
@@ -47,10 +47,10 @@ class PikfliqThemeData {
       colorScheme: const ColorScheme.dark(
         primary: Color(0xFF004D40), // A much darker green, almost teal, for primary content
         secondary: Color(0xFF00796B), // A slightly lighter shade for accents
-        background: Color(0xFF000000), // Black for general backgrounds
+        surface: Color(0xFF000000), // Black for general backgrounds
         onPrimary: Colors.white,
         onSecondary: Colors.white,
-        onBackground: Colors.white,
+        onSurface: Colors.white,
       ),
       fontFamily: 'Roboto',
       appBarTheme: const AppBarTheme(

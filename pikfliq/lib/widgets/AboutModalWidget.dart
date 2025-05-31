@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutModalWidget extends StatelessWidget {
-  const AboutModalWidget({Key? key}) : super(key: key);
+  const AboutModalWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class AboutModalWidget extends StatelessWidget {
                 child: Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.red,
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.close, color: Colors.white),
+                    icon: const Icon(Icons.close, color: Colors.white),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
@@ -41,8 +41,8 @@ class AboutModalWidget extends StatelessWidget {
                   height: size * 0.375,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 "Pikfliq - Your Shortcut to Movie Discovery",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -51,13 +51,13 @@ class AboutModalWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               const Text(
                 "Pikfliq is designed to simplify your movie choices. Say goodbye to endless scrolling and indecision. With Pikfliq, discover your next favorite movie in just one click.",
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               InkWell(
                 onTap: () async {
                   const url = 'https://github.com/User5678953';
@@ -65,7 +65,7 @@ class AboutModalWidget extends StatelessWidget {
                     await launch(url);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Could not launch $url'), backgroundColor: Colors.red),
+                      const SnackBar(content: Text('Could not launch $url'), backgroundColor: Colors.red),
                     );
                   }
                 },

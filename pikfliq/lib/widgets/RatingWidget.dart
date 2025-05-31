@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class RatingBarWidget extends StatelessWidget {
   final double rating; // Rating on a 10-point scale
 
-  const RatingBarWidget({Key? key, required this.rating}) : super(key: key);
+  const RatingBarWidget({super.key, required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class RatingBarWidget extends StatelessWidget {
 
     return Column(
       children: [
-        SizedBox(height: 8), // Space above the rating bar
+        const SizedBox(height: 8), // Space above the rating bar
         Center(
           child: Stack(
             children: [
@@ -38,7 +38,7 @@ class RatingBarWidget extends StatelessWidget {
                     fit: BoxFit.scaleDown, // Ensures the text scales down to fit the space if needed
                     child: Text(
                       rating.toStringAsFixed(1),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20, // Increased font size
                         color: Colors.white, // Text color for contrast
@@ -52,7 +52,7 @@ class RatingBarWidget extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 16), // Increased space below the rating bar for separation
+        const SizedBox(height: 16), // Increased space below the rating bar for separation
       ],
     );
   }

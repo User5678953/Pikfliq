@@ -14,11 +14,11 @@ class MovieCard extends StatefulWidget {
   final VoidCallback onFetchMovie;
 
   const MovieCard({
-    Key? key,
+    super.key,
     this.movieData,
     this.isMobile = false,
     required this.onFetchMovie,
-  }) : super(key: key);
+  });
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -104,7 +104,7 @@ Widget _buildMobileLayout() {
     // Adjustments for desktop layout can be similar, focusing on content structure
     // and alignment as per your design preferences.
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: InformationWidget(
         title: widget.movieData!['title'] ?? 'No Title',
         summary: widget.movieData!['overview'] ?? '',
@@ -118,7 +118,7 @@ Widget _buildMobileLayout() {
   @override
   Widget build(BuildContext context) {
     return widget.movieData == null
-        ? Center(child: CircularProgressIndicator())
+        ? const Center(child: CircularProgressIndicator())
         : widget.isMobile ? _buildMobileLayout() : _buildDesktopLayout();
   }
 }

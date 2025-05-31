@@ -3,7 +3,7 @@ import 'package:pikfliq/widgets/AboutModalWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawerWidget extends StatefulWidget {
-  const CustomDrawerWidget({Key? key}) : super(key: key);
+  const CustomDrawerWidget({super.key});
 
   @override
   _CustomDrawerWidgetState createState() => _CustomDrawerWidgetState();
@@ -42,7 +42,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center, // Center the content
               children: [
                 Text(
@@ -74,16 +74,16 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.movie),
-            title: Text('Watchlist'),
+            leading: const Icon(Icons.movie),
+            title: const Text('Watchlist'),
             onTap: () {
               Navigator.pushNamed(context, '/home');
             },
           ),
           
           ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('About'),
+            leading: const Icon(Icons.info_outline),
+            title: const Text('About'),
             onTap: () {
               showDialog(
                 context: context,
@@ -93,9 +93,9 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            padding: EdgeInsets.only(bottom: 20),
-            child: Text(
-              'Version 1.5 March 2024',
+            padding: const EdgeInsets.only(bottom: 20),
+            child: const Text(
+              'Version 1.0.0+1 May 2025',
               style: TextStyle(
                 color: Colors.grey,
               ),

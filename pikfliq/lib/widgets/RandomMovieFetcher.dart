@@ -5,8 +5,7 @@ import 'package:pikfliq/widgets/movie_card.dart';
 class RandomMovieFetcher extends StatefulWidget {
   final Map<String, dynamic>? movieData;
 
-  const RandomMovieFetcher({Key? key, required this.onNewMovie, this.movieData})
-      : super(key: key);
+  const RandomMovieFetcher({super.key, required this.onNewMovie, this.movieData});
   final Function(Map<String, dynamic>?) onNewMovie;
 
   @override
@@ -45,7 +44,7 @@ class _RandomMovieFetcherState extends State<RandomMovieFetcher> {
     isMobile: MediaQuery.of(context).size.width < 600,
     onFetchMovie: () {}, 
           )
-        : Center(
+        : const Center(
             child:
                 CircularProgressIndicator()); // Ensure this line is correct as shown
   }

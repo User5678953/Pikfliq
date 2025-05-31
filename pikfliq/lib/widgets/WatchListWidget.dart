@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:pikfliq/models/favorites.dart'; // Import the favorites list
 
 class WatchListWidget extends StatelessWidget {
+  const WatchListWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Watch List'),
+        title: const Text('Watch List'),
       ),
       body: favoriteMovies.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('You haven\'t added any movies yet'),
-                  SizedBox(height: 20), // Adding space between text and button
+                  const Text('You haven\'t added any movies yet'),
+                  const SizedBox(height: 20), // Adding space between text and button
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home'); // Changed button text and route
                     },
-                    child: Text('Browse Movies'), // Changed button text
+                    child: const Text('Browse Movies'), // Changed button text
                   ),
                 ],
               ),
@@ -32,7 +34,7 @@ class WatchListWidget extends StatelessWidget {
                   key: Key(movie['id'].toString()), // Assuming each movie has a unique 'id'
                   background: Container(
                     color: Colors.red,
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
@@ -49,13 +51,13 @@ class WatchListWidget extends StatelessWidget {
                   },
                   child: Card(
                     elevation: 4,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     child: ListTile(
                       title: Text(movie['title'] ?? 'No Title'),
                       onTap: () {
                         Navigator.pushNamed(context, '/home');
                       },
-                      trailing: Icon(Icons.delete_sweep_rounded), // Swipe icon indicator
+                      trailing: const Icon(Icons.delete_sweep_rounded), // Swipe icon indicator
                     ),
                   ),
                 );

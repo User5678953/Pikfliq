@@ -6,10 +6,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   const AppBarWidget({
-    Key? key,
+    super.key,
     required this.onToggleTheme,
     required this.scaffoldKey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

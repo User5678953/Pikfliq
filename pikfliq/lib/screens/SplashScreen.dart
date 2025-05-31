@@ -2,7 +2,7 @@ import 'dart:async'; // Ensure you have this import for the Timer
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: LinearProgressIndicator(
                 value: _progressValue,
                 backgroundColor: Colors.grey,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
                 minHeight: 12, // Adjust the thickness of the progress bar
               ),
             ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PosterWidget extends StatelessWidget {
   final String imagePath;
 
-  const PosterWidget({Key? key, required this.imagePath}) : super(key: key);
+  const PosterWidget({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class PosterWidget extends StatelessWidget {
     final double maxWidth = isMobile ? screenSize.width : 400.0; // For example, max width of 400 pixels for desktop
 
     return Center( // Center the image on non-mobile screens
-      child: Container(
+      child: SizedBox(
         height: imageHeight, // Set the height to limit the vertical length
         width: isMobile ? double.infinity : maxWidth, // Limit width for non-mobile screens
         child: Stack(
@@ -34,9 +34,9 @@ class PosterWidget extends StatelessWidget {
             if (isMobile) Positioned( // Only show this on mobile layouts
               bottom: 10, // Distance from the bottom of the poster
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4), // Padding inside the container
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), // Padding inside the container
                 color: Colors.black.withOpacity(0.5), // Semi-transparent black background
-                child: Text(
+                child: const Text(
                   'Tap for Details',
                   style: TextStyle(
                     color: Colors.white,

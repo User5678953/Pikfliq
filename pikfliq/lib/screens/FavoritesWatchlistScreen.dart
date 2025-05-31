@@ -9,7 +9,7 @@ import 'package:pikfliq/widgets/WatchListWidget.dart';
 
 
 class FavoritesWatchlistScreen extends StatefulWidget {
-  const FavoritesWatchlistScreen({Key? key}) : super(key: key);
+  const FavoritesWatchlistScreen({super.key});
 
   @override
   State<FavoritesWatchlistScreen> createState() => _FavoritesWatchlistScreenState();
@@ -37,7 +37,7 @@ class _FavoritesWatchlistScreenState extends State<FavoritesWatchlistScreen> {
       //   onToggleTheme: _toggleTheme,
       //   scaffoldKey: _scaffoldKey,
       // ),
-      drawer: CustomDrawerWidget(), // Keep the DrawerWidget as is
+      drawer: const CustomDrawerWidget(), // Keep the DrawerWidget as is
       body: WatchListWidget(), // Integrate the WatchListWidget here
       // Center(
       //   child: UnderDevPlaceholderWidget(), // Commented out the UnderDevPlaceholderWidget

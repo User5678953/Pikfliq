@@ -10,13 +10,13 @@ class InformationWidget extends StatelessWidget {
   final VoidCallback onBackButtonPressed;
 
   const InformationWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.summary,
     required this.releaseDate,
     required this.backdropPath,
     required this.onBackButtonPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class InformationWidget extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     Widget buildTitle() {
-      return Text(title, style: textTheme.headline6?.copyWith(color: textColor));
+      return Text(title, style: textTheme.titleLarge?.copyWith(color: textColor));
     }
 
     Widget buildImage() {
@@ -49,10 +49,10 @@ class InformationWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 10),
-          Text('Release Date: $formattedDate', style: textTheme.subtitle1?.copyWith(color: textColor)),
-          SizedBox(height: 20),
-          Text(summary, style: textTheme.bodyText2?.copyWith(color: textColor)),
+          const SizedBox(height: 10),
+          Text('Release Date: $formattedDate', style: textTheme.titleMedium?.copyWith(color: textColor)),
+          const SizedBox(height: 20),
+          Text(summary, style: textTheme.bodyMedium?.copyWith(color: textColor)),
         ],
       );
     }
@@ -63,26 +63,26 @@ class InformationWidget extends StatelessWidget {
         child: FloatingActionButton(
            elevation: 0,
           backgroundColor: Colors.red,
-          child: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: onBackButtonPressed,
+          child: Icon(Icons.arrow_back, color: Colors.white),
         ),
-      ) : SizedBox();
+      ) : const SizedBox();
     }
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             buildTitle(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             buildImage(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             buildTextContent(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             buildBackButton(),
           ],
         ),

@@ -10,7 +10,7 @@ import 'package:pikfliq/widgets/WatchListWidget.dart';
 import 'package:pikfliq/models/favorites.dart'; // This should be your Favorites manager
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required this.themeMode, required this.toggleTheme}) : super(key: key);
+  const HomeScreen({super.key, required this.themeMode, required this.toggleTheme});
 
   final ThemeMode themeMode;
   final VoidCallback toggleTheme;
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SnackBar(
           content: Center(child: Text(
             '${movie['title']} added to Watchlist!',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), // Make text bold white
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold), // Make text bold white
           )),
           backgroundColor: Colors.green, // Set the snackbar color to green for success
         ),
@@ -55,25 +55,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override Widget build(BuildContext context) {
     
-  List<Widget> _widgetOptions = [
+  List<Widget> widgetOptions = [
   RandomMovieFetcher(
     movieData: currentMovie, // Ensure RandomMovieFetcher accepts and uses this parameter
     onNewMovie: (movie) => setState(() => currentMovie = movie)
   ),
-  UnderDevPlaceholderWidget(),
+  const UnderDevPlaceholderWidget(),
   WatchListWidget(),
 ];
 
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBarWidget(onToggleTheme: widget.toggleTheme, scaffoldKey: _scaffoldKey),
-      endDrawer: CustomDrawerWidget(),
+      endDrawer: const CustomDrawerWidget(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: IntrinsicHeight(child: _widgetOptions.elementAt(_selectedIndex)),
+              child: IntrinsicHeight(child: widgetOptions.elementAt(_selectedIndex)),
             ),
           );
         },
@@ -85,15 +85,15 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               FloatingActionButton(
                 onPressed: () => _addToFavorites(currentMovie),
-                child: const Icon(Icons.favorite),
                 backgroundColor: Colors.red,
                 heroTag: 'add_to_favorites',
+                child: const Icon(Icons.favorite),
               ),
-              SizedBox(height: 10), // Provide some spacing between the buttons
+              const SizedBox(height: 10), // Provide some spacing between the buttons
 FloatingActionButton(
-  onPressed: fetchRandomMovie, // This should trigger the fetch and update the UI
+  onPressed: fetchRandomMovie,
+  backgroundColor: Colors.blue, // This should trigger the fetch and update the UI
   child: const Icon(Icons.refresh),
-  backgroundColor: Colors.blue,
 ),
             ],
           ) 
